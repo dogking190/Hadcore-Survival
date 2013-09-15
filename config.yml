@@ -1,0 +1,9 @@
+##################################################################################
+#############                    Hardcore Survival                   #############
+#############Default Configuration for Hardcore SurvivalConfiguration#############
+#############                    By: Dogking190                      #############
+##################################################################################
+
+#This well Enable and disable the Night time 24/7
+Time:
+  AlwaysNight: false
