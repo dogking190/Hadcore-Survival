@@ -1,11 +1,14 @@
 package com.gmail.dogking190;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,6 +30,7 @@ public class HLM extends JavaPlugin{
 		pm.registerEvents(new GracePeriod(this), this);
 		//pm.registerEvents(new CommandCancel(this), this);
 		//pm.registerEvents(new Deop(this), this);
+		pm.registerEvents(new BoomArrows(this), this);
 		
 		/**---------------------------- Config File--------------------------------------- */
 		FileConfiguration config = this.getConfig();
@@ -48,11 +52,26 @@ public class HLM extends JavaPlugin{
 			}
 					}
 				}
-			}, 0L, 20);
+			}, 0L, 1200L);
 			
 			/** --------------------------- Bukkit Runable End ------------------------------------- */
 			
 		}
+		
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
+			
+			public void run(){
+				World world = Bukkit.getServer().getWorld("world");
+				List<Entity> enty = world.getEntities();
+				
+				for(Entity current : enty){
+					if(current instanceof Item){
+						current.remove();
+					}
+				}
+			}
+			
+		}, 0L, 36000L);
 	}
 	
 	
