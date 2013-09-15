@@ -2,3 +2,4 @@ name: Hardcore Survival
 main: com.gmail.dogking190.HLM
 version: 1.0
 description: Makes Hardcore mode even Harder!
+load: STARTUP
