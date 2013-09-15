@@ -1,15 +1,27 @@
 package com.gmail.dogking190;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 
 public class HC_Generator extends ChunkGenerator {
+	HLM plugin;
 	
+	List<BlockPopulator> populators = new ArrayList<BlockPopulator>();
+	
+	public HC_Generator(HLM instance){
+		plugin = instance;
+		populators.add(new TreeGen());
+	}
+
 	void setBlock(int x, int y, int z, byte[][] chunk, Material material) {
-		//if the Block section the block is in hasn't been used yet, allocate it
+		// if the Block section the block is in hasn't been used yet, allocate
+		// it
 		if (chunk[y >> 4] == null)
 			chunk[y >> 4] = new byte[16 * 16 * 16];
 		if (!(y <= 256 && y >= 0 && x <= 16 && x >= 0 && z <= 16 && z >= 0))
@@ -20,50 +32,57 @@ public class HC_Generator extends ChunkGenerator {
 		} catch (Exception e) {
 			// do nothing
 		}
-		}
+	}
 
-	public byte[][] generateBlockSections(World world, Random random,int chunkX, int chunkZ, BiomeGrid biomeGrid) {
-		byte[][] result = new byte[world.getMaxHeight() / 16][]; // world height / chunk part height (=16,look above)
-		for(int x = 0;x < 16; x++){
-			for(int z= 0; z<16; z++){
-				for(int y = 0;y <= 1;y++){
+	public byte[][] generateBlockSections(World world, Random random,
+			int chunkX, int chunkZ, BiomeGrid biomeGrid) {
+		byte[][] result = new byte[world.getMaxHeight() / 16][]; // world height
+																	// / chunk
+																	// part
+																	// height
+																	// (=16,look
+																	// above)
+		for (int x = 0; x < 16; x++) {
+			for (int z = 0; z < 16; z++) {
+				for (int y = 0; y <= 1; y++) {
 
 					setBlock(x, y, z, result, Material.BEDROCK);
 				}
-					
-				
+
 			}
-			
+
 		}
-		
-		for(int x = 0;x < 16; x++){
-			for(int z= 0; z<16; z++){
-				for(int y = 1;y <= 99;y++){
+
+		for (int x = 0; x < 16; x++) {
+			for (int z = 0; z < 16; z++) {
+				for (int y = 1; y <= 99; y++) {
 
 					setBlock(x, y, z, result, Material.DIRT);
 				}
-					
-				
+
 			}
-			
+
 		}
-		
-		for(int x = 0;x < 16; x++){
-			for(int z= 0; z<16; z++){
-				for(int y = 100;y <= 100;y++){
+
+		for (int x = 0; x < 16; x++) {
+			for (int z = 0; z < 16; z++) {
+				for (int y = 100; y <= 100; y++) {
 
 					setBlock(x, y, z, result, Material.GRASS);
 				}
-					
-				
+
 			}
-			
+
 		}
+
+		
+		
 		return result;
 	}
 	
-	
-	
-	
-	
+	public List<BlockPopulator> getDefaultPopulators(World world){
+		return populators;
+		
+	}
+
 }

@@ -91,7 +91,7 @@ public class HLM extends JavaPlugin {
 	}
 
 	public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-		return new HC_Generator();
+		return new HC_Generator(this);
 	}
 
 	public void onDisable() {
